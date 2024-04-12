@@ -17,7 +17,7 @@ from typing import Any, Callable, Dict, List, Optional, Union
 
 import torch
 from packaging import version
-from transformers import CLIPImageProcessor, CLIPTextModel, CLIPTokenizer, CLIPVisionModelWithProjection
+from transformers import SiglipTextModel, SiglipTokenizer, CLIPImageProcessor, CLIPTextModel, CLIPTokenizer, CLIPVisionModelWithProjection
 
 from ...configuration_utils import FrozenDict
 from ...image_processor import PipelineImageInput, VaeImageProcessor
@@ -163,14 +163,14 @@ class StableDiffusionPipeline(
     def __init__(
         self,
         vae: AutoencoderKL,
-        text_encoder: CLIPTextModel,
-        tokenizer: CLIPTokenizer,
+        text_encoder: SiglipTextModel, #CLIPTextModel,
+        tokenizer: SiglipTokenizer, #CLIPTokenizer,
         unet: UNet2DConditionModel,
         scheduler: KarrasDiffusionSchedulers,
-        safety_checker: StableDiffusionSafetyChecker,
-        feature_extractor: CLIPImageProcessor,
+        safety_checker: StableDiffusionSafetyChecker = None,
+        feature_extractor: CLIPImageProcessor = None,
         image_encoder: CLIPVisionModelWithProjection = None,
-        requires_safety_checker: bool = True,
+        requires_safety_checker: bool = False,
     ):
         super().__init__()
 

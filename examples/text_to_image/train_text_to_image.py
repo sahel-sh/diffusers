@@ -39,7 +39,7 @@ from huggingface_hub import create_repo, upload_folder
 from packaging import version
 from torchvision import transforms
 from tqdm.auto import tqdm
-from transformers import SiglipTextModel, SiglipTokenizer #CLIPTextModel, CLIPTokenizer, 
+from transformers import SiglipTextModel, SiglipTokenizer #, CLIPTextModel, CLIPTokenizer
 from transformers.utils import ContextManagers
 
 import diffusers
@@ -200,7 +200,7 @@ def log_validation(vae, text_encoder, tokenizer, unet, args, accelerator, weight
 def parse_args():
     parser = argparse.ArgumentParser(description="Simple example of a training script.")
     parser.add_argument(
-        "--input_perturbation", type=float, default=0, help="The scale of input perturbation. Recommended 0.1."
+        "--input_perturbation", type=float, default=0.1, help="The scale of input perturbation. Recommended 0.1."
     )
     parser.add_argument(
         "--pretrained_model_name_or_path",
@@ -357,7 +357,7 @@ def parse_args():
     parser.add_argument(
         "--snr_gamma",
         type=float,
-        default=0,
+        default=5.0,
         help="SNR weighting gamma to be used if rebalancing the loss. Recommended value is 5.0. "
         "More details here: https://arxiv.org/abs/2303.09556.",
     )
